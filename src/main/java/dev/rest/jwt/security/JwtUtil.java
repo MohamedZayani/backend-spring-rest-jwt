@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class JwtUtil {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private long validityInMilliseconds = 3600000; // 1 heure
+    private long validityInMilliseconds = 24*2*3600000; // 1 heure
 
 
 

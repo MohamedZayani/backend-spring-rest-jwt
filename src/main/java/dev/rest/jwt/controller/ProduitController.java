@@ -25,7 +25,7 @@ public class ProduitController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<Produit> getProduitById(@PathVariable Long id) {
+    public ResponseEntity<Produit> getProduitById(@PathVariable("id") Long id) {
         return produitService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -41,7 +41,7 @@ public class ProduitController {
     // Mise à jour : accessible uniquement par ADMIN
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Produit> updateProduit(@PathVariable Long id, @RequestBody Produit updatedProduit) {
+    public ResponseEntity<Produit> updateProduit(@PathVariable("id") Long id, @RequestBody Produit updatedProduit) {
         return produitService.findById(id)
                 .map(produit -> {
                     produit.setNom(updatedProduit.getNom());
@@ -54,8 +54,8 @@ public class ProduitController {
     // Suppression : accessible uniquement par ADMIN
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteProduit(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProduit(@PathVariable("id") Long id) {
         boolean deleted = produitService.deleteById(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        return deleted ?  ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }
